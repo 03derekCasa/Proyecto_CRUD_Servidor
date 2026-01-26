@@ -1,0 +1,11 @@
+# Laravel
+/vendor
+/node_modules
+.env
+
+# IDEs
+.idea/
+.vscode/
+
+# OS
+.DS_Store
