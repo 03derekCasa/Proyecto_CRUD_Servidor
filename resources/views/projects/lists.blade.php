@@ -1,89 +1,84 @@
 <x-layouts.layout>
-    <div class="overflow-x-auto h-96 w-1/2 ">
-        @if (session("success"))
-            <div role="alert" class="alert alert-success">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 shrink-0 stroke-current" fill="none" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-                <span>{{session("success")}}</span>
+    <div class="w-screen min-h-screen px-8 py-8">
+
+        @if (session('success'))
+            <div class="mb-4 p-3 bg-green-100 text-green-800 rounded">
+                {{ __(session('success')) }}
             </div>
         @endif
-            <a href="{{route("projects.create")}}">
+
+        <div class="mb-6">
+            <a href="{{ route('projects.create') }}">
                 <button class="btn btn-primary">
                     Agregar Project
                 </button>
             </a>
+        </div>
 
-    <div class="max-h-screen flex  justify-center p-2">
-    <div class="overflow-x-auto h-96 w-1/2 bg-green-50">
-        @if (session('success'))
-            <div class="mb-4 p-3 bg-green-100 text-green-700 rounded">
-                {{-- Traducimos el mensaje por si viene en clave de traducción --}}
-                {{ __(session('success')) }}
-            </div>
-        @endif
-        <table class="table table-xs table-pin-rows table-pin-cols max-w-full">
-            <thead>
-            <tr>
-                @foreach($fields as $field)
-                    <th>{{$field}}</th>
-                @endforeach
-                <th></th>
-                <th></th>
-            </tr>
-            </thead>
-            <tbody>
-
-            @foreach($projects as $project)
-                <tr class="hover:bg-gray-200">
-                    <td>{{$project->name}}</td>
-                    <td>{{$project->description}}</td>
-                    <td>{{$project->hours}}</td>
-                    <td>{{$project->starting_date}}</td>
-                    <td>
-                    <a href="{{route("projects.edit",$project->id)}}">
-                        <button class=" btn btn-primary cursor-pointer">Editar</button>
-                    </a>
-                    </td>
-                    <td>
-                        <form  action="{{route("projects.destroy", $project->id)}}" method="POST">
-{{--                        Esta es otra forma de especificiar la ruta
-            <form  action="/projects/{{$projects->id}}" method="POST">
-            --}}
-                            @csrf
-                            @method('DELETE')
-                            <button onclick= confirmar(event)
-                                        type=submit class="btn btn-sm btn-secondary">
-                    </td>
-
+        <div class="w-full overflow-x-auto bg-white shadow rounded-lg p-4">
+            <table class="table table-zebra w-full">
+                <thead>
+                <tr>
+                    @foreach($fields as $field)
+                        <th>{{ $field }}</th>
+                    @endforeach
+                    <th class="text-right">Editar</th>
+                    <th class="text-right">Borrar</th>
                 </tr>
-            @endforeach
-            {{--            contenido o filas (recursos)--}}
-            </tbody>
-        </table>
+                </thead>
+
+                <tbody>
+                @foreach($projects as $project)
+                    <tr class="hover:bg-gray-100">
+                        <td>{{ $project->name }}</td>
+                        <td>{{ $project->description }}</td>
+                        <td>{{ $project->hours }}</td>
+                        <td>{{ $project->starting_date }}</td>
+
+                        <td class="text-right">
+                            <a href="{{ route('projects.edit', $project->id) }}">
+                                <button class="btn btn-sm btn-primary">Editar</button>
+                            </a>
+                        </td>
+
+                        <td class="text-right">
+                            <form action="{{ route('projects.destroy', $project->id) }}" method="POST">
+                                @csrf
+                                @method('DELETE')
+
+                                <button onclick="confirmar(event)"
+                                        type="submit"
+                                        class="btn btn-sm btn-secondary">
+                                    Borrar
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                @endforeach
+                </tbody>
+
+            </table>
+        </div>
+
     </div>
-    </div>
+
     <script>
-        function confirmar(e ){
+        function confirmar(e) {
             e.preventDefault();
             const button = e.currentTarget;
-            const form = button.closest("form")
+            const form = button.closest("form");
+
             Swal.fire({
-                title:"Confirmar Borrado",
-                text:"Seguro que quieres borrar",
-                icon:"warning",
+                title: "Confirmar borrado",
+                text: "¿Seguro que quieres borrar?",
+                icon: "warning",
                 showCancelButton: true,
                 confirmButtonColor: "#3085d6",
                 cancelButtonColor: "#d33",
-                confirmButtonText: "Si, borrar"
-            })
-                .then((response)=>{
-                    if (response.isConfirmed){
-                        form.submit();
-                    }
-                });
-
-
+                confirmButtonText: "Sí, borrar"
+            }).then((response) => {
+                if (response.isConfirmed) form.submit();
+            });
         }
     </script>
 </x-layouts.layout>
