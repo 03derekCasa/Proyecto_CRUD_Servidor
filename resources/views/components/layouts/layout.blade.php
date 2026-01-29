@@ -1,20 +1,20 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-
-
-  @vite(["resources/css/app.css", "resources/js/app.js"])
-
+    <meta charset="UTF-8">
+    <title>Proyecto CRUD Laravel</title>
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
-<body>
-  <x-layouts.header />
-  <x-layouts.nav />
-  <main class="h-main bg-main">
-    {{ $slot  }}
-  </main>
-  <x-layouts.footer />
+
+<body class="bg-gray-100 text-gray-900 min-h-screen flex flex-col">
+
+@include('partials.nav')
+
+<main class="flex-1 w-full px-6 py-6">
+    {{ $slot }}
+</main>
+
+@include('partials.footer')
+
 </body>
 </html>

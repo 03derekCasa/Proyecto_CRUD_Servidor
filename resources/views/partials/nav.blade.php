@@ -1,50 +1,22 @@
-<nav class="bg-gray-100 border-b">
-    <div class="container mx-auto p-3">
-        <ul class="flex gap-6 items-center">
-            <li>
-                <a href="{{ route('home') }}" class="font-semibold hover:underline">
-                    Inicio
-                </a>
-            </li>
+<nav class="bg-blue-600 text-white">
+    <div class="max-w-7xl mx-auto px-6">
+        <div class="flex justify-between h-14 items-center">
+            <div class="flex gap-6 items-center">
+                <span class="font-bold text-lg">Proyecto CRUD Laravel</span>
 
-            @auth
-                <li>
-                    <a href="#" class="hover:underline">
-                        Proyectos
-                    </a>
-                </li>
+                <a href="{{ url('/') }}" class="hover:underline">Inicio</a>
+                <a href="{{ route('projects.index') }}" class="hover:underline">Proyectos</a>
+                <a href="{{ route('alumnos.index') }}" class="hover:underline">Alumnos</a>
+            </div>
 
-                <li>
-                    <a href="#" class="hover:underline">
-                        Alumnos
-                    </a>
-                </li>
+            <div class="flex items-center gap-4">
+                <span>{{ auth()->user()->name }}</span>
 
-                <li class="ml-auto">
-                    <span class="mr-4">
-                        {{ Auth::user()->name }}
-                    </span>
-
-                    <form method="POST" action="{{ route('logout') }}" class="inline">
-                        @csrf
-                        <button type="submit" class="text-red-600 hover:underline">
-                            Logout
-                        </button>
-                    </form>
-                </li>
-            @else
-                <li class="ml-auto">
-                    <a href="{{ route('login') }}" class="hover:underline">
-                        Login
-                    </a>
-                </li>
-
-                <li>
-                    <a href="{{ route('register') }}" class="hover:underline">
-                        Register
-                    </a>
-                </li>
-            @endauth
-        </ul>
+                <form method="POST" action="{{ route('logout') }}">
+                    @csrf
+                    <button class="text-red-200 hover:text-red-400">Logout</button>
+                </form>
+            </div>
+        </div>
     </div>
 </nav>

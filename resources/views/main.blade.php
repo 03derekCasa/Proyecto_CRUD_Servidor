@@ -1,35 +1,32 @@
 <x-layouts.layout>
+
     @guest
-    <div
-        class="hero min-h-full "
-        style="background-image: url(https://img.daisyui.com/images/stock/photo-1507358522600-9f71e620c44e.webp);"
-    >
-        <div class="hero-overlay"></div>
-        <div class="hero-content text-neutral-content text-center">
-            <div class="max-w-md">
-                <h1 class="mb-5 text-5xl font-bold">{{__("Bienvenido a la aplicaicón")}}</h1>
-                <p class="mb-5">
-                    {{__("Aquí puedes ver nuestra utilidades aprendiendo Laravel")}}
-                </p>
-                <button class="btn btn-primary">{{__("Empezando")}}</button>
-            </div>
+        <div class="text-center text-gray-800">
+            <h2 class="text-3xl font-bold mb-4">Bienvenido a la aplicación</h2>
+            <p class="mb-6">Inicia sesión o regístrate para continuar</p>
+            <a href="{{ route('login') }}" class="bg-blue-600 text-white px-4 py-2 rounded mr-2">Login</a>
+            <a href="{{ route('register') }}" class="bg-green-600 text-white px-4 py-2 rounded">Registro</a>
         </div>
-    </div>
     @endguest
+
     @auth
-            <div class="card bg-base-100 image-full w-96 shadow-sm p-4 max-w-full ">
-                <figure>
-                    <img
-                        src={{asset("img/projects.jpeg")}}
-                        alt="Shoes" />
-                </figure>
-                <div class="card-body">
-                    <h2 class="card-title">Gestionar proyectos</h2>
-                    <p>Gestionar de forma completa los proyectos del centro</p>
-                    <div class="card-actions justify-end">
-                        <a href="{{route("projects.index")}}"><button class="btn btn-primary">Proyectos</button></a>
-                    </div>
-                </div>
-            </div>
-        @endauth
+        <h2 class="text-2xl font-bold mb-6 text-gray-800">Panel principal</h2>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+            <a href="{{ route('projects.index') }}"
+               class="block p-6 bg-white shadow rounded hover:bg-gray-100">
+                <h3 class="text-xl font-bold text-gray-800">Proyectos</h3>
+                <p class="text-gray-600">Gestión de proyectos</p>
+            </a>
+
+            <a href="{{ route('alumnos.index') }}"
+               class="block p-6 bg-white shadow rounded hover:bg-gray-100">
+                <h3 class="text-xl font-bold text-gray-800">Alumnos</h3>
+                <p class="text-gray-600">Gestión de alumnos</p>
+            </a>
+
+        </div>
+    @endauth
+
 </x-layouts.layout>

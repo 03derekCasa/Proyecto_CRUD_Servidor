@@ -35,3 +35,19 @@ require __DIR__.'/auth.php';
 Route::get("/lang/{lang}", SetLanguageController::class)->name("set_lang");
 
 Route::get('/', function () { return view('main'); })->name('home');
+
+Route::get('/', function () {
+    return view('main');
+})->name('main');
+
+Route::middleware('auth')->group(function () {
+    Route::resource('projects', \App\Http\Controllers\ProjectController::class);
+    Route::resource('alumnos', \App\Http\Controllers\AlumnoController::class);
+});
+
+Route::middleware('auth')->group(function () {
+    Route::resource('alumnos', \App\Http\Controllers\AlumnoController::class)
+        ->only(['index', 'create', 'store', 'destroy']);
+});
+
+

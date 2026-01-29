@@ -1,63 +1,57 @@
 <x-layouts.layout>
-    <!-- Session Status -->
-    <div class="bg-gray-200 min-h-full flex justify-center items-center">
-        <x-auth-session-status class="mb-4" :status="session('status')" />
 
-        <form method="POST" class="bg-white p-5 rounded-2xl"
-              action="{{ route('projects.store') }}" >
-            @csrf
+    <h2 class="text-2xl font-bold mb-6 text-gray-800">Nuevo proyecto</h2>
 
-            <!-- Email Address -->
-            <div>
-                <x-input-label for="name" :value="__('Nombre')" />
-                <x-text-input id="name" class="block mt-1 w-full"
-                              type="text" name="name"
-                              :value="old('name')" required autofocus autocomplete="username" />
-                <x-input-error :messages="$errors->get('name')" class="mt-2" />
-            </div>
+    <form method="POST"
+          action="{{ route('projects.store') }}"
+          class="bg-white p-6 shadow rounded w-full max-w-md text-gray-800">
+        @csrf
 
-            <!-- Password -->
-            <div class="mt-4">
-                <x-input-label for="description" :value="__('Description')" />
+        <div class="mb-4">
+            <label class="block mb-1 font-medium text-gray-700">Nombre</label>
+            <input type="text"
+                   name="name"
+                   value="{{ old('name') }}"
+                   class="w-full border border-gray-300 p-2 rounded text-gray-800">
+            @error('name')
+            <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
+            @enderror
+        </div>
 
-                <x-text-input id="description" class="block mt-1 w-full"
-                              type="text"
-                              name="description"
-                              :value="old('description')"
-                              />
+        <div class="mb-4">
+            <label class="block mb-1 font-medium text-gray-700">Descripción</label>
+            <textarea name="description"
+                      class="w-full border border-gray-300 p-2 rounded text-gray-800">{{ old('description') }}</textarea>
+            @error('description')
+            <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
+            @enderror
+        </div>
 
-                <x-input-error :messages="$errors->get('description')" class="mt-2" />
-            </div>
-  <div class="mt-4">
-                <x-input-label for="hours" :value="__('Horas')" />
+        <div class="mb-4">
+            <label class="block mb-1 font-medium text-gray-700">Horas</label>
+            <input type="number"
+                   name="hours"
+                   value="{{ old('hours') }}"
+                   class="w-full border border-gray-300 p-2 rounded text-gray-800">
+            @error('hours')
+            <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
+            @enderror
+        </div>
 
-                <x-text-input id="hours" class="block mt-1 w-full"
-                              type="text"
-                              name="hours"
-                              />
+        <div class="mb-4">
+            <label class="block mb-1 font-medium text-gray-700">Fecha de comienzo</label>
+            <input type="date"
+                   name="starting_date"
+                   value="{{ old('starting_date') }}"
+                   class="w-full border border-gray-300 p-2 rounded text-gray-800">
+            @error('starting_date')
+            <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
+            @enderror
+        </div>
 
-                <x-input-error :messages="$errors->get('hours')" class="mt-2" />
-            </div>
-            <div class="mt-4">
-                <x-input-label for="starting_date" :value="__('Fecha de comienzo')" />
-
-                <x-text-input id="starting_date" class="block mt-1 w-full"
-                              type="date"
-                              name="starting_date"
-                              />
-
-                <x-input-error :messages="$errors->get('starting_date')" class="mt-2" />
-            </div>
-
-
-
-
-
-                <x-primary-button class="ms-3">
-                    {{ __('Guardar') }}
-                </x-primary-button>
-            </div>
-        </form>
-    </div>
+        <button class="bg-blue-600 text-white px-4 py-2 rounded">
+            Guardar
+        </button>
+    </form>
 
 </x-layouts.layout>

@@ -21,3 +21,12 @@
     --color-main: #b8e2c8;
     --color-footer: #b0a1ba;
 }
+
+html, body {
+    width: 100%;
+    overflow-x: hidden;
+}
+
+table {
+    width: 100%;
+}
