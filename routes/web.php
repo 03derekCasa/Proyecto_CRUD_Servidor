@@ -33,3 +33,5 @@ require __DIR__.'/auth.php';
 
 
 Route::get("/lang/{lang}", SetLanguageController::class)->name("set_lang");
+
+Route::get('/', function () { return view('main'); })->name('home');
